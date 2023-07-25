@@ -11,18 +11,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Star
@@ -56,7 +50,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent { // setContent内でComposable関数を受け取る、Composable関数の中からComposable関数を呼び出せない。
             KotlinJetpackComposeCountAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -78,31 +71,26 @@ fun CounterApp() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column {
-//            SimpleFilledTextFieldSample()
-            Text(
-                text = "Count: ${viewModel.getCount()}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.DarkGray, // 色を変える
-                fontSize = 18.sp
-            )
-        }
 
+        Text(
+            text = "Count: ${viewModel.getCount()}",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.DarkGray, // 色を変える
+            fontSize = 18.sp
+        )
 
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             CounterButton(
                 text = "Plus",
                 onClick = { viewModel.increment() }
             )
-            Spacer(modifier = Modifier.width(8.dp))
             CounterButton(
                 text = "Minus",
                 onClick = { viewModel.decrement() }
             )
-            Spacer(modifier = Modifier.width(8.dp))
             CounterButton(
                 text = "Reset",
                 onClick = { viewModel.reset() }
