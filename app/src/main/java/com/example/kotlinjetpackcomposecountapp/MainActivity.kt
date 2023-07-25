@@ -51,7 +51,7 @@ fun CounterApp() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Count: ${viewModel.count}", style = MaterialTheme.typography.bodyMedium)
+        Text(text = "Count: ${viewModel.getCount()}", style = MaterialTheme.typography.bodyMedium)
 
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
@@ -84,6 +84,15 @@ fun CounterButton(text: String, onClick: () -> Unit) {
     ) {
         Text(text = text, style = MaterialTheme.typography.bodyMedium)
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCounterButton () {
+    CounterButton(
+        text = "+",
+        onClick = {}
+    )
 }
 
 @Preview(showBackground = true)
