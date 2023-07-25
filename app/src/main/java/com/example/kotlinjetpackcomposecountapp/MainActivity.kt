@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,7 +65,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CounterApp() {
 
-    val viewModel: CounterViewModel = viewModel()
+    val context = LocalContext.current
+    val counterPreferences = remember { CounterPreferences(context) }
+    val viewModel: CounterViewModel = viewModel(factory = CounterViewModelFactory(counterPreferences))
+
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -72,12 +76,7 @@ fun CounterApp() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
-            text = "Count: ${viewModel.getCount()}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.DarkGray, // 色を変える
-            fontSize = 18.sp
-        )
+        CounterView(viewModel.getCount())
 
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
@@ -98,6 +97,35 @@ fun CounterApp() {
         }
 
     }
+}
+
+@Composable
+fun CounterView(count: Int) {
+    Row (
+        modifier = Modifier.padding(vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        )
+    {
+        Text(
+            "Count:",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.DarkGray,
+            fontSize = 18.sp
+        )
+        Text(
+            "$count",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Red,
+            fontSize = 24.sp
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCounterView() {
+    CounterView(count = 0)
 }
 
 @Composable
