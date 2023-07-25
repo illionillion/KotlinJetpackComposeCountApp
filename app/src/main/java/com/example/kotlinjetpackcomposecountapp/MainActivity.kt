@@ -158,6 +158,23 @@ fun CounterButton(text: String, onClick: () -> Unit) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewCounterButton () {
+    CounterButton(
+        text = stringResource(R.string.hello_text), // リソースファイルから文字列を取得（ハードコードを避けるため）
+        onClick = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCounterApp() {
+    CounterApp()
+}
+
+// 以下、練習用（カウントアプリには無関係）
+// Previewでのみ表示
 @Composable
 fun ImageSample() {
     val imageModifier = Modifier
@@ -206,19 +223,4 @@ fun SimpleFilledTextFieldSample() {
         onValueChange = { text = it },
         label = { Text("Greet Label") }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewCounterButton () {
-    CounterButton(
-        text = stringResource(R.string.hello_text), // リソースファイルから文字列を取得（ハードコードを避けるため）
-        onClick = {}
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewCounterApp() {
-    CounterApp()
 }
