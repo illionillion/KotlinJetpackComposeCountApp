@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KotlinJetpackComposeCountApp</string>
+    <string name="hello_text">Hello Kotlin</string>
 </resources>
