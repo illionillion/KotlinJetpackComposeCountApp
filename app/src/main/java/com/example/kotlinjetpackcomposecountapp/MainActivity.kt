@@ -224,3 +224,9 @@ fun SimpleFilledTextFieldSample() {
         label = { Text("Greet Label") }
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSimpleFilledTextFieldSample() {
+    SimpleFilledTextFieldSample()
+}
