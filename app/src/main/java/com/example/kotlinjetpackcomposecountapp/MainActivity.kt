@@ -19,7 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -84,15 +84,18 @@ fun CounterApp() {
         ) {
             CounterButton(
                 text = "Plus",
-                onClick = { viewModel.increment() }
+                onClick = { viewModel.increment() },
+                icon = Icons.Filled.KeyboardArrowUp
             )
             CounterButton(
                 text = "Minus",
-                onClick = { viewModel.decrement() }
+                onClick = { viewModel.decrement() },
+                icon = Icons.Filled.KeyboardArrowDown
             )
             CounterButton(
                 text = "Reset",
-                onClick = { viewModel.reset() }
+                onClick = { viewModel.reset() },
+                icon = Icons.Filled.Clear
             )
         }
 
@@ -129,30 +132,20 @@ fun PreviewCounterView() {
 }
 
 @Composable
-fun CounterButton(text: String, onClick: () -> Unit) {
+fun CounterButton(text: String, onClick: () -> Unit, icon: ImageVector? = null) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
         shape = MaterialTheme.shapes.extraSmall
     ) {
-        Icon(
-            when (text) {
-              "Plus" -> {
-                  Icons.Filled.KeyboardArrowUp
-              }
-              "Minus" -> {
-                  Icons.Filled.KeyboardArrowDown
-              }
-              "Reset" -> {
-                  Icons.Filled.Clear
-              }
-              else -> {
-                  Icons.Filled.Star
-              }
-            },
-            contentDescription = null,
-            modifier = Modifier.size(ButtonDefaults.IconSize)
-        )
+        if (icon != null) {
+            Icon(
+                icon,
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize)
+            )
+        }
+
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         Text(text = text, style = MaterialTheme.typography.bodyMedium)
     }
