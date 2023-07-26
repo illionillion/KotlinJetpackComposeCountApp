@@ -144,9 +144,8 @@ fun CounterButton(text: String, onClick: () -> Unit, icon: ImageVector? = null) 
                 contentDescription = null,
                 modifier = Modifier.size(ButtonDefaults.IconSize)
             )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         }
-
-        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         Text(text = text, style = MaterialTheme.typography.bodyMedium)
     }
 }
