@@ -1,10 +1,12 @@
 package com.example.kotlinjetpackcomposecountapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -24,9 +27,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+//import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,46 +66,59 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CounterApp() {
-
     val context = LocalContext.current
     val counterPreferences = remember { CounterPreferences(context) }
     val viewModel: CounterViewModel = viewModel(factory = CounterViewModelFactory(counterPreferences))
 
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        CounterView(viewModel.getCount())
-
-        Row(
-            modifier = Modifier.padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            CounterButton(
-                text = "Plus",
-                onClick = { viewModel.increment() },
-                icon = Icons.Filled.KeyboardArrowUp
-            )
-            CounterButton(
-                text = "Minus",
-                onClick = { viewModel.decrement() },
-                icon = Icons.Filled.KeyboardArrowDown
-            )
-            CounterButton(
-                text = "Reset",
-                onClick = { viewModel.reset() },
-                icon = Icons.Filled.Clear
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "カウントアプリ",
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
+                },
+                backgroundColor = MaterialTheme.colorScheme.primary
             )
         }
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CounterView(viewModel.getCount())
 
+            Row(
+                modifier = Modifier.padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                CounterButton(
+                    text = "Plus",
+                    onClick = { viewModel.increment() },
+                    icon = Icons.Filled.KeyboardArrowUp
+                )
+                CounterButton(
+                    text = "Minus",
+                    onClick = { viewModel.decrement() },
+                    icon = Icons.Filled.KeyboardArrowDown
+                )
+                CounterButton(
+                    text = "Reset",
+                    onClick = { viewModel.reset() },
+                    icon = Icons.Filled.Clear
+                )
+            }
+        }
     }
 }
+
 
 @Composable
 fun CounterView(count: Int) {
